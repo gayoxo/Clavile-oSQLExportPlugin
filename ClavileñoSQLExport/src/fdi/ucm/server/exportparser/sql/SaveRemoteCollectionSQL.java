@@ -31,8 +31,8 @@ public class SaveRemoteCollectionSQL extends SaveCollection {
 	 * @see fdi.ucm.server.SaveCollection#processCollecccion(fdi.ucm.shared.model.collection.Collection)
 	 */
 	@Override
-	public CompleteCollectionLog processCollecccion(CompleteCollection Salvar)
-			throws CompleteImportRuntimeException {
+	public CompleteCollectionLog processCollecccion(CompleteCollection Salvar,
+			String PathTemporalFiles) throws CompleteImportRuntimeException {
 
 		CompleteCollectionLog CL=new CompleteCollectionLog();
 		SaveProcessMainSQL sql;
@@ -97,5 +97,16 @@ public class SaveRemoteCollectionSQL extends SaveCollection {
 		}
 		   return sb.toString();
 		}
+
+	@Override
+	public boolean isFileOutput() {
+		return false;
+	}
+
+
+	@Override
+	public String FileOutput() {
+		return "";
+	}
 
 }
