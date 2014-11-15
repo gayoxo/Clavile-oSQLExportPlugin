@@ -109,4 +109,12 @@ public class SaveRemoteCollectionSQL extends SaveCollection {
 		return "";
 	}
 
+
+	@Override
+	public void SetlocalTemporalFolder(String TemporalPath) {
+		
+	}
+
+
+
 }
