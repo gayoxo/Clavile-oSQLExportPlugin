@@ -50,15 +50,17 @@ public class SaveRemoteCollectionSQL extends SaveCollection {
 		if (Parametros==null)
 		{
 			ArrayList<ImportExportPair> ListaCampos=new ArrayList<ImportExportPair>();
-			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Text, "Server"));
-			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Text, "Database"));
-			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Number, "Port"));
-			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Text, "User"));
-			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.EncriptedText, "Password"));
+			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Text, "MySQL Server Direction"));
+			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Text, "MySQL Database"));
+			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Number, "MySQL Port"));
+			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Text, "MySQL User"));
+			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.EncriptedText, "MySQL Password"));
 			Parametros=ListaCampos;
 			return ListaCampos;
 		}
 		else return Parametros;
+		
+		
 	}
 
 	/* (non-Javadoc)
