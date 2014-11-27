@@ -168,4 +168,36 @@ public class StaticFuctionsSQL {
 		return false;
 	}
 
+	public static String getType(CompleteElementType completeElementType) {
+		ArrayList<CompleteOperationalView> Shows = completeElementType.getShows();
+		for (CompleteOperationalView show : Shows) {
+			
+			if (show.getName().equals(NameConstantsSQL.SQL))
+			{
+				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
+				for (CompleteOperationalValueType showValues : ShowValue) {
+					if (showValues.getName().equals(NameConstantsSQL.TYPECOLUMN))
+									return showValues.getDefault();
+				}
+			}
+		}
+		return null;
+	}
+
+	public static String getValor(CompleteElementType completeElementType) {
+		ArrayList<CompleteOperationalView> Shows = completeElementType.getShows();
+		for (CompleteOperationalView show : Shows) {
+			
+			if (show.getName().equals(NameConstantsSQL.SQL))
+			{
+				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
+				for (CompleteOperationalValueType showValues : ShowValue) {
+					if (showValues.getName().equals(NameConstantsSQL.TYPECOLUMN2))
+									return showValues.getDefault();
+				}
+			}
+		}
+		return null;
+	}
+
 }

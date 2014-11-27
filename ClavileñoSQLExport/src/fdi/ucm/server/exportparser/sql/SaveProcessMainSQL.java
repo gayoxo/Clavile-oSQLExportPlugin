@@ -157,18 +157,31 @@ public class SaveProcessMainSQL {
 	}
 
 	private String generaCampo(CompleteElementType completeElementType) {
+		
+		String Name="`"+completeElementType.getName()+"`";
 		if (completeElementType instanceof CompleteTextElementType)
-				
-			if (StaticFuctionsSQL.isNumeric(completeElementType)) 
-				return "`"+completeElementType.getName()+"` int(100) DEFAULT NULL";
+		{	
+			String Typo=StaticFuctionsSQL.getType(completeElementType);
+			String Valor=StaticFuctionsSQL.getValor(completeElementType);
+
+			
+			if (Typo!=null&&!Typo.isEmpty())
+			{
+				if (Valor!=null&&!Valor.isEmpty()) 
+					return Name+" "+Typo+"("+Valor+") DEFAULT NULL";
+				else
+					return Name+" "+Typo+" DEFAULT NULL";
+			}
+			else if (StaticFuctionsSQL.isNumeric(completeElementType)) 
+				return Name+" int(100) DEFAULT NULL";
 			else if (StaticFuctionsSQL.isDate(completeElementType))
-				return "`"+completeElementType.getName()+"` DATETIME DEFAULT NULL";
+				return Name+" DATETIME DEFAULT NULL";
 			else if (StaticFuctionsSQL.isBoolean(completeElementType))
-				return "`"+completeElementType.getName()+"` BOOL DEFAULT NULL";
+				return Name+" BOOL DEFAULT NULL";
 			else if (StaticFuctionsSQL.isControled(completeElementType))
 				{
 				StringBuffer SB = new StringBuffer();
-				SB.append("`"+completeElementType.getName()+"` SET(");
+				SB.append(Name+" SET(");
 				
 				ArrayList<String> Vocabulario=StaticFuctionsSQL.getVocabulary((CompleteTextElementType)completeElementType);
 				for (int i = 0; i < Vocabulario.size(); i++) {
@@ -183,11 +196,12 @@ public class SaveProcessMainSQL {
 				SB.append(")");
 				return SB.toString();
 				}
-			else return "`"+completeElementType.getName()+"` varchar(255) DEFAULT NULL";
+			else return Name+" varchar(255) DEFAULT NULL";
+		}
 		if (completeElementType instanceof CompleteResourceElementType)
-			return "`"+completeElementType.getName()+"` varchar(255) DEFAULT NULL";
+			return Name+" varchar(255) DEFAULT NULL";
 		if (completeElementType instanceof CompleteLinkElementType)
-			return "`"+completeElementType.getName()+"` varchar(255) DEFAULT NULL";
+			return Name+" varchar(255) DEFAULT NULL";
 		
 		return null;
 	}
