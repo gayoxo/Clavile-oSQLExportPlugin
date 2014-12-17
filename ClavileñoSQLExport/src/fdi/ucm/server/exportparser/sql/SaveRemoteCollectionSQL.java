@@ -10,7 +10,7 @@ import fdi.ucm.server.modelComplete.ImportExportPair;
 import fdi.ucm.server.modelComplete.CompleteImportRuntimeException;
 import fdi.ucm.server.modelComplete.SaveCollection;
 import fdi.ucm.server.modelComplete.collection.CompleteCollection;
-import fdi.ucm.server.modelComplete.collection.CompleteCollectionLog;
+import fdi.ucm.server.modelComplete.collection.CompleteLogAndUpdates;
 
 /**
  * @author Joaquin Gayoso-Cabada
@@ -31,10 +31,10 @@ public class SaveRemoteCollectionSQL extends SaveCollection {
 	 * @see fdi.ucm.server.SaveCollection#processCollecccion(fdi.ucm.shared.model.collection.Collection)
 	 */
 	@Override
-	public CompleteCollectionLog processCollecccion(CompleteCollection Salvar,
+	public CompleteLogAndUpdates processCollecccion(CompleteCollection Salvar,
 			String PathTemporalFiles) throws CompleteImportRuntimeException {
 
-		CompleteCollectionLog CL=new CompleteCollectionLog();
+		CompleteLogAndUpdates CL=new CompleteLogAndUpdates();
 		SaveProcessMainSQL sql;
 		sql = new SaveProcessMainSQL(Salvar);
 		sql.preocess();	
