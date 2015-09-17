@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteElementType;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteGrammar;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteOperationalValueType;
-import fdi.ucm.server.modelComplete.collection.grammar.CompleteOperationalView;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteTextElementType;
 
 /**
@@ -26,54 +25,45 @@ public class StaticFuctionsSQL {
 	 */
 	public static boolean isTablas(CompleteGrammar hastype) {
 		
-		ArrayList<CompleteOperationalView> Shows = hastype.getViews();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = hastype.getViews();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.SQL))
+			if (show.getView().equals(NameConstantsSQL.SQL))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.SQLType))
-							if (showValues.getDefault().equals(NameConstantsSQL.TABLA)) 
+					if (show.getName().equals(NameConstantsSQL.SQLType))
+							if (show.getDefault().equals(NameConstantsSQL.TABLA)) 
 										return true;
-				}
 			}
 		}
 		return false;
 	}
 
 	public static boolean isColumna(CompleteElementType hastype) {
-		ArrayList<CompleteOperationalView> Shows = hastype.getShows();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = hastype.getShows();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.SQL))
+			if (show.getView().equals(NameConstantsSQL.SQL))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.SQLType))
-							if (showValues.getDefault().equals(NameConstantsSQL.COLUMNA)) 
+					if (show.getName().equals(NameConstantsSQL.SQLType))
+							if (show.getDefault().equals(NameConstantsSQL.COLUMNA)) 
 										return true;
-				}
 			}
 		}
 		return false;
 	}
 	
 	public static boolean isKey(CompleteElementType hastype) {
-		ArrayList<CompleteOperationalView> Shows = hastype.getShows();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = hastype.getShows();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.SQL))
+			if (show.getView().equals(NameConstantsSQL.SQL))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.KEY))
-						if (showValues.getDefault().equals(Boolean.toString(true))) 
+					if (show.getName().equals(NameConstantsSQL.KEY))
+						if (show.getDefault().equals(Boolean.toString(true))) 
 							return true;
-						else if (showValues.getDefault().equals(Boolean.toString(false))) 
+						else if (show.getDefault().equals(Boolean.toString(false))) 
 								return false;
 
-				}
 			}
 		}
 		return false;
@@ -85,51 +75,42 @@ public class StaticFuctionsSQL {
 	 * @return
 	 */
 	public static boolean isNumeric(CompleteElementType hastype) {
-		ArrayList<CompleteOperationalView> Shows = hastype.getShows();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = hastype.getShows();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.METATYPE))
+			if (show.getView().equals(NameConstantsSQL.METATYPE))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.METATYPETYPE))
-							if (showValues.getDefault().equals(NameConstantsSQL.NUMERIC)) 
+					if (show.getName().equals(NameConstantsSQL.METATYPETYPE))
+							if (show.getDefault().equals(NameConstantsSQL.NUMERIC)) 
 										return true;
-				}
 			}
 		}
 		return false;
 	}
 
 	public static boolean isDate(CompleteElementType hastype) {
-		ArrayList<CompleteOperationalView> Shows = hastype.getShows();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = hastype.getShows();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.METATYPE))
+			if (show.getView().equals(NameConstantsSQL.METATYPE))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.METATYPETYPE))
-							if (showValues.getDefault().equals(NameConstantsSQL.DATE)) 
+					if (show.getName().equals(NameConstantsSQL.METATYPETYPE))
+							if (show.getDefault().equals(NameConstantsSQL.DATE)) 
 										return true;
-				}
 			}
 		}
 		return false;
 	}
 
 	public static boolean isBoolean(CompleteElementType completeElementType) {
-		ArrayList<CompleteOperationalView> Shows = completeElementType.getShows();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = completeElementType.getShows();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.METATYPE))
+			if (show.getView().equals(NameConstantsSQL.METATYPE))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.METATYPETYPE))
-							if (showValues.getDefault().equals(NameConstantsSQL.BOOLEAN)) 
+					if (show.getName().equals(NameConstantsSQL.METATYPETYPE))
+							if (show.getDefault().equals(NameConstantsSQL.BOOLEAN)) 
 										return true;
-				}
 			}
 		}
 		return false;
@@ -137,64 +118,54 @@ public class StaticFuctionsSQL {
 	
 	public static ArrayList<String> getVocabulary(CompleteTextElementType attribute) {
 		ArrayList<String> Salida=new ArrayList<String>();
-		ArrayList<CompleteOperationalView> Shows = attribute.getShows();
-		for (CompleteOperationalView show : Shows) {	
-			if (show.getName().equals(NameConstantsSQL.VOCABULARY))
+		ArrayList<CompleteOperationalValueType> Shows = attribute.getShows();
+		for (CompleteOperationalValueType show : Shows) {	
+			if (show.getView().equals(NameConstantsSQL.VOCABULARY))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.TERM))
-						Salida.add(showValues.getDefault());
-				}
+					if (show.getName().equals(NameConstantsSQL.TERM))
+						Salida.add(show.getDefault());
 			}
 		}
 		return Salida;
 	}
 
 	public static boolean isControled(CompleteElementType completeElementType) {
-		ArrayList<CompleteOperationalView> Shows = completeElementType.getShows();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = completeElementType.getShows();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.METATYPE))
+			if (show.getView().equals(NameConstantsSQL.METATYPE))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.METATYPETYPE))
-							if (showValues.getDefault().equals(NameConstantsSQL.CONTROLED)) 
+
+					if (show.getName().equals(NameConstantsSQL.METATYPETYPE))
+							if (show.getDefault().equals(NameConstantsSQL.CONTROLED)) 
 										return true;
-				}
 			}
 		}
 		return false;
 	}
 
 	public static String getType(CompleteElementType completeElementType) {
-		ArrayList<CompleteOperationalView> Shows = completeElementType.getShows();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = completeElementType.getShows();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.SQL))
+			if (show.getView().equals(NameConstantsSQL.SQL))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.TYPECOLUMN))
-									return showValues.getDefault();
-				}
+					if (show.getName().equals(NameConstantsSQL.TYPECOLUMN))
+									return show.getDefault();
+
 			}
 		}
 		return null;
 	}
 
 	public static String getValor(CompleteElementType completeElementType) {
-		ArrayList<CompleteOperationalView> Shows = completeElementType.getShows();
-		for (CompleteOperationalView show : Shows) {
+		ArrayList<CompleteOperationalValueType> Shows = completeElementType.getShows();
+		for (CompleteOperationalValueType show : Shows) {
 			
-			if (show.getName().equals(NameConstantsSQL.SQL))
+			if (show.getView().equals(NameConstantsSQL.SQL))
 			{
-				ArrayList<CompleteOperationalValueType> ShowValue = show.getValues();
-				for (CompleteOperationalValueType showValues : ShowValue) {
-					if (showValues.getName().equals(NameConstantsSQL.TYPECOLUMN2))
-									return showValues.getDefault();
-				}
+					if (show.getName().equals(NameConstantsSQL.TYPECOLUMN2))
+									return show.getDefault();
 			}
 		}
 		return null;
