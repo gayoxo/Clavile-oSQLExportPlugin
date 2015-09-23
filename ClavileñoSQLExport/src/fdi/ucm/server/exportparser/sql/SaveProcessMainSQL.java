@@ -4,7 +4,9 @@
 package fdi.ucm.server.exportparser.sql;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 
 import fdi.ucm.server.modelComplete.CompleteImportRuntimeException;
 import fdi.ucm.server.modelComplete.collection.CompleteCollection;
@@ -55,50 +57,58 @@ public class SaveProcessMainSQL {
 	
 	private void processEstructuras() {
 		for (CompleteDocuments iterable_element : toOda.getEstructuras()) {
-			ArrayList<CompleteElementType> Campos=ListaTablas.get(iterable_element.getDocument());
-			if (Campos!=null&&!Campos.isEmpty())
+			
+			for (CompleteGrammar completeGrammar : toOda.getMetamodelGrammar()) {
+				if (isInGrammar(iterable_element, completeGrammar))
 				{
-				StringBuffer Cabecera= new StringBuffer();
-				StringBuffer Cuerpo= new StringBuffer();
-				Cabecera.append("INSERT INTO `");
-				Cabecera.append(iterable_element.getDocument().getNombre());
-				Cabecera.append("` (");
-				boolean iniciado=false;
-				for (int i = 0; i < Campos.size(); i++) {
-					CompleteElementType completeElementType=Campos.get(i);
-					CompleteElement M=null;
-					for (CompleteElement meta2 : iterable_element.getDescription()) {
-						if (meta2.getHastype()==completeElementType)
+					ArrayList<CompleteElementType> Campos=ListaTablas.get(completeGrammar);
+					if (Campos!=null&&!Campos.isEmpty())
 						{
-							M=meta2;
-							break;
-						}
-					}
-					if (M!=null)
-						{
-						if (i!=0&&iniciado)
-							{
-							Cabecera.append(",");
-							Cuerpo.append(",");
+						StringBuffer Cabecera= new StringBuffer();
+						StringBuffer Cuerpo= new StringBuffer();
+						Cabecera.append("INSERT INTO `");
+						Cabecera.append(completeGrammar.getNombre());
+						Cabecera.append("` (");
+						boolean iniciado=false;
+						for (int i = 0; i < Campos.size(); i++) {
+							CompleteElementType completeElementType=Campos.get(i);
+							CompleteElement M=null;
+							for (CompleteElement meta2 : iterable_element.getDescription()) {
+								if (meta2.getHastype()==completeElementType)
+								{
+									M=meta2;
+									break;
+								}
 							}
-						Cabecera.append("`");
-						Cabecera.append(completeElementType.getName());
-						Cabecera.append("`");
-						Cuerpo.append(generacuerpo(M));
-						iniciado=true;
+							if (M!=null)
+								{
+								if (i!=0&&iniciado)
+									{
+									Cabecera.append(",");
+									Cuerpo.append(",");
+									}
+								Cabecera.append("`");
+								Cabecera.append(completeElementType.getName());
+								Cabecera.append("`");
+								Cuerpo.append(generacuerpo(M));
+								iniciado=true;
+								}
+						}
+						
+						Cabecera.append(") Values (");
+						Cabecera.append(Cuerpo.toString());
+						Cabecera.append(");");
+						
+					//	System.out.println(Cabecera.toString());
+						
+						MySQLConnectionMySQL.RunQuerry(Cabecera.toString());
+							
+						
 						}
 				}
-				
-				Cabecera.append(") Values (");
-				Cabecera.append(Cuerpo.toString());
-				Cabecera.append(");");
-				
-			//	System.out.println(Cabecera.toString());
-				
-				MySQLConnectionMySQL.RunQuerry(Cabecera.toString());
-					
-				
-				}
+			}
+			
+			
 		}
 		
 	}
@@ -298,4 +308,28 @@ public class SaveProcessMainSQL {
 		return false;
 	}
 
+	public static boolean isInGrammar(CompleteDocuments iterable_element,
+			CompleteGrammar completeGrammar) {
+		HashSet<Long> ElemT=new HashSet<Long>();
+		for (CompleteElement dd : iterable_element.getDescription()) {
+			ElemT.add(dd.getHastype().getClavilenoid());
+		}
+		
+		return isInGrammar(ElemT, completeGrammar.getSons());
+		
+		
+	}
+
+
+
+	private static boolean isInGrammar(HashSet<Long> elemT,
+			List<CompleteStructure> sons) {
+		for (CompleteStructure CSlong1 : sons) {
+			if (elemT.contains(CSlong1.getClavilenoid())||isInGrammar(elemT, CSlong1.getSons()))
+				return true;
+			
+		}
+		return false;
+	}
+	
 }
